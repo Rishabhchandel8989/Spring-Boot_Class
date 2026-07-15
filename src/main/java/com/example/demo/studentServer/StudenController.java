@@ -24,6 +24,7 @@ public class StudenController {
         if(result==null){
             return ResponseEntity.status(400).body(null);
         }
+
         return ResponseEntity.status(201).body(result);
     }
 

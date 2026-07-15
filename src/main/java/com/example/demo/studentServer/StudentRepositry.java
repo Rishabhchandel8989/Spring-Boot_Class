@@ -1,15 +1,9 @@
 package com.example.demo.studentServer;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class StudentRepositry {
+public interface StudentRepositry extends JpaRepository<Student, Integer> {
 
-    public Student save(Student student){
-
-        System.out.println("Student informationis save");
-
-
-        return student;
-    }
 }
