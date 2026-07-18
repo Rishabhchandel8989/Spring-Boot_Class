@@ -18,11 +18,12 @@ public class StudenController {
             this.studentService=studentService;
         }
 
+//        Get All the Student
         @GetMapping("student")
         public List<Student> getAllStudent(){
             return studentService.getAllStudents();
         }
-
+//     Get the student by there ID
     @GetMapping("/student/{id}")
     public Student getStudent(@PathVariable int id) {
         return studentService.getStudent(id);
@@ -38,5 +39,9 @@ public class StudenController {
 
         return ResponseEntity.status(201).body(result);
     }
+
+//    Update the detail of the student
+//    @PutMapping("Student/{id}")
+//    public Student updateDetailOfStudent();
 
 }
