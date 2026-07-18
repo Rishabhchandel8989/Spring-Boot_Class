@@ -2,9 +2,11 @@ package com.example.demo.studentServer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+import static org.apache.tomcat.util.net.openssl.OpenSSLStatus.getName;
 
 @RestController
 public class StudenController {
@@ -16,6 +18,15 @@ public class StudenController {
             this.studentService=studentService;
         }
 
+        @GetMapping("student")
+        public List<Student> getAllStudent(){
+            return studentService.getAllStudents();
+        }
+
+        @GetMapping("student/{regNo}")
+        public List<Student> getStudentByReg(@PathVariable int reg){
+            return studentService.getStudentDetailByRegNumber();
+        }
 
     @PostMapping("/create")
     public ResponseEntity<Student> storeStudent(@RequestBody Student student ){
