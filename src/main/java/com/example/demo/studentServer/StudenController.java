@@ -23,10 +23,10 @@ public class StudenController {
             return studentService.getAllStudents();
         }
 
-        @GetMapping("student/{regNo}")
-        public List<Student> getStudentByReg(@PathVariable int reg){
-            return studentService.getStudentDetailByRegNumber();
-        }
+    @GetMapping("/student/{id}")
+    public Student getStudent(@PathVariable int id) {
+        return studentService.getStudent(id);
+    }
 
     @PostMapping("/create")
     public ResponseEntity<Student> storeStudent(@RequestBody Student student ){

@@ -22,26 +22,21 @@ public class StudentService {
         int id=student.getId();
         String deparment=student.getDeparment();
         int reg= student.getRegNo();
-
-
+//        System.out.println(reg);
         student.setCreatedAt(LocalDateTime.now());
 
         if(id<0 || name== null || deparment==null || reg<0){
             return null;
         }
-
-
-
         studentRepositry.save(student);
         return student;
-
     }
-
     public List<Student> getAllStudents() {
         return studentRepositry.findAll();
     }
-
-    public List<Student> getStudentDetailByRegNumber() {
-       return studentRepositry.
+    public Student getStudent(int id){
+        return studentRepositry.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student Not Found")
+                );
     }
 }
