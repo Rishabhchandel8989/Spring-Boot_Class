@@ -1,6 +1,10 @@
 package com.example.demo.studentServer;
 
-
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,8 +18,13 @@ public class Student {
     @GeneratedValue
     @Id
     int id;
+
     @NotNull
     String name;
+
+
+    @NotBlank(message = "Department cannot be blank")
+    @Size(min = 2, max = 50, message = "Department must be between 2 and 50 characters")
     String deparment;
     int regNo;
     public int getId() {
