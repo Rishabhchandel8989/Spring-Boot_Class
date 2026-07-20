@@ -1,12 +1,12 @@
 package com.example.demo.studentServer;
 
+import com.example.demo.studentServer.DTO.CreateStudentRequestDTO;
+import com.example.demo.studentServer.DTO.CreateStudentResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import static org.apache.tomcat.util.net.openssl.OpenSSLStatus.getName;
 
 @RestController
 public class StudenController {
@@ -30,8 +30,8 @@ public class StudenController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Student> storeStudent(@RequestBody Student student ){
-       Student result= studentService.studentValidate(student);
+    public ResponseEntity<CreateStudentResponseDTO> storeStudent(@RequestBody CreateStudentRequestDTO createStudentRequestDTO){
+       CreateStudentResponseDTO result= studentService.studentValidate(createStudentRequestDTO);
 
         if(result==null){
             return ResponseEntity.status(400).body(null);

@@ -1,4 +1,6 @@
 package com.example.demo.studentServer;
+import com.example.demo.studentServer.DTO.CreateStudentRequestDTO;
+import com.example.demo.studentServer.DTO.CreateStudentResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,21 +18,24 @@ public class StudentService {
         this.studentRepositry=studentRepositry;
     }
 
-    public Student studentValidate(Student student) {
+    public CreateStudentResponseDTO studentValidate(CreateStudentRequestDTO createStudentRequestDTO) {
 
-        String name=student.getName();
-        int id=student.getId();
-        String deparment=student.getDeparment();
-        int reg= student.getRegNo();
-//        System.out.println(reg);
-        student.setCreatedAt(LocalDateTime.now());
-
-        if(id<0 || name== null || deparment==null || reg<0){
-            return null;
-        }
-        studentRepositry.save(student);
-        return student;
+       Student student=mapToStudent(createStudentRequestDTO);
+       studentRepositry.save(student);
+       return mapToResposeDTO(student);
     }
+
+
+
+    private Student mapToStudent(CreateStudentRequestDTO createStudentRequestDTO) {
+       Student student=new Student();
+       student.setName(createStudentRequestDTO.getName());
+       student.setDeparment(createStudentRequestDTO.getDeparment());
+       student.setRegNo(createStudentRequestDTO.getRegNo());
+
+       return student;
+    }
+
     public List<Student> getAllStudents() {
         return studentRepositry.findAll();
     }
@@ -38,5 +43,16 @@ public class StudentService {
         return studentRepositry.findById(id)
                 .orElseThrow(() -> new RuntimeException("Student Not Found")
                 );
+    }
+
+    private CreateStudentResponseDTO mapToResposeDTO(Student student){
+       CreateStudentResponseDTO createStudentResponseDTO=new CreateStudentResponseDTO();
+       createStudentResponseDTO.setId(student.getId());
+       createStudentResponseDTO.setName(student.getName());
+       createStudentResponseDTO.setRegNo(student.getRegNo());
+
+       return createStudentResponseDTO;
+
+
     }
 }
