@@ -2,6 +2,7 @@ package com.example.demo.studentServer;
 
 import com.example.demo.studentServer.DTO.CreateStudentRequestDTO;
 import com.example.demo.studentServer.DTO.CreateStudentResponseDTO;
+import com.example.demo.studentServer.DTO.UpdateStudentRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,8 +41,15 @@ public class StudenController {
         return ResponseEntity.status(201).body(result);
     }
 
-//    Update the detail of the student
-//    @PutMapping("Student/{id}")
-//    public Student updateDetailOfStudent();
+    @PutMapping("/student/{id}")
+    public ResponseEntity<CreateStudentResponseDTO> updateStudent(
+            @PathVariable int id,
+            @RequestBody UpdateStudentRequestDTO updateStudentRequestDTO) {
+
+        CreateStudentResponseDTO response =
+                studentService.updateStudent(id, updateStudentRequestDTO);
+
+        return ResponseEntity.ok(response);
+    }
 
 }

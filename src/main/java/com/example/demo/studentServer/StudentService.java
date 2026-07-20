@@ -1,6 +1,7 @@
 package com.example.demo.studentServer;
 import com.example.demo.studentServer.DTO.CreateStudentRequestDTO;
 import com.example.demo.studentServer.DTO.CreateStudentResponseDTO;
+import com.example.demo.studentServer.DTO.UpdateStudentRequestDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,6 @@ public class StudentService {
     }
 
     public CreateStudentResponseDTO studentValidate(CreateStudentRequestDTO createStudentRequestDTO) {
-
        Student student=mapToStudent(createStudentRequestDTO);
        studentRepositry.save(student);
        return mapToResposeDTO(student);
@@ -46,13 +46,28 @@ public class StudentService {
     }
 
     private CreateStudentResponseDTO mapToResposeDTO(Student student){
-       CreateStudentResponseDTO createStudentResponseDTO=new CreateStudentResponseDTO();
-       createStudentResponseDTO.setId(student.getId());
-       createStudentResponseDTO.setName(student.getName());
-       createStudentResponseDTO.setRegNo(student.getRegNo());
+        CreateStudentResponseDTO createStudentResponseDTO = new CreateStudentResponseDTO();
+        createStudentResponseDTO.setId(student.getId());
+        createStudentResponseDTO.setName(student.getName());
+        createStudentResponseDTO.setRegNo(student.getRegNo());
+        createStudentResponseDTO.setCreatedAt(student.getCreatedAt());
 
-       return createStudentResponseDTO;
-
-
+        return createStudentResponseDTO;
     }
+
+    public CreateStudentResponseDTO updateStudent(
+            int id,
+            UpdateStudentRequestDTO updateStudentRequestDTO) {
+
+        Student student = studentRepositry.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student Not Found"));
+
+        student.setName(updateStudentRequestDTO.getName());
+        student.setDeparment(updateStudentRequestDTO.getDeparment());
+
+        studentRepositry.save(student);
+
+        return mapToResposeDTO(student);
+    }
+
 }

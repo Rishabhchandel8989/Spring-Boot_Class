@@ -2,6 +2,7 @@ package com.example.demo.studentServer;
 
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.context.annotation.Primary;
@@ -10,6 +11,13 @@ import java.time.LocalDateTime;
 
 @Entity
 public class Student {
+    @GeneratedValue
+    @Id
+    int id;
+    @NotNull
+    String name;
+    String deparment;
+    int regNo;
     public int getId() {
         return id;
     }
@@ -28,18 +36,12 @@ public class Student {
     public void setDeparment(String deparment) {
         this.deparment = deparment;
     }
-    @Id
-    int id;
     public int getRegNo() {
         return regNo;
     }
     public void setRegNo(int regNo) {
         this.regNo = regNo;
     }
-    @NotNull
-    String name;
-    String deparment;
-    int regNo;
     private LocalDateTime createdAt;
     public LocalDateTime getCreatedAt() {
         return createdAt;
