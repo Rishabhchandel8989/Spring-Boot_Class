@@ -26,6 +26,9 @@ public class Student {
     @NotBlank(message = "Department cannot be blank")
     @Size(min = 2, max = 50, message = "Department must be between 2 and 50 characters")
     String deparment;
+
+    @Min(value = 1, message = "Registration number must be at least 1")
+    @Max(value = 999999, message = "Registration number cannot exceed 999999")
     int regNo;
     public int getId() {
         return id;
