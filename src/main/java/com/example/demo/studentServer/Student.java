@@ -1,5 +1,6 @@
 package com.example.demo.studentServer;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Size;
@@ -27,6 +28,8 @@ public class Student {
     @Size(min = 2, max = 50, message = "Department must be between 2 and 50 characters")
     String deparment;
 
+
+    @Column(unique = true)
     @Min(value = 1, message = "Registration number must be at least 1")
     @Max(value = 999999, message = "Registration number cannot exceed 999999")
     int regNo;

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentRepositry extends JpaRepository<Student, Integer> {
-
+    boolean existsByRegNo(int regNo);
 }

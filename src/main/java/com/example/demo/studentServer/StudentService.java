@@ -21,7 +21,12 @@ public class StudentService {
     }
 
     public CreateStudentResponseDTO studentValidate(CreateStudentRequestDTO createStudentRequestDTO) {
-       Student student=mapToStudent(createStudentRequestDTO);
+
+//       if(studentRepositry.existsByRegNo(student.getRegNo()))
+        Student student=mapToStudent(createStudentRequestDTO);
+        if (studentRepositry.existsByRegNo(student.getRegNo())) {
+            throw new RuntimeException("Registration Number already exists");
+        }
        studentRepositry.save(student);
        return mapToResposeDTO(student);
     }
@@ -29,6 +34,7 @@ public class StudentService {
 
 
     private Student mapToStudent(CreateStudentRequestDTO createStudentRequestDTO) {
+
        Student student=new Student();
        student.setName(createStudentRequestDTO.getName());
        student.setDeparment(createStudentRequestDTO.getDeparment());
@@ -45,9 +51,12 @@ public class StudentService {
 //        return studentRepositry.findById(id)
 //                .orElseThrow(() -> new RuntimeException("Student Not Found")
 //                );
+        return studentRepositry.findById(id)
+                .orElseThrow(() -> new RuntimeException("Student Not Found"));
 
-        Optional<Student> student=studentRepositry.findById((id));
-        return student.get();
+
+//        Optional<Student> student=studentRepositry.findById((id));
+//        return student.get();
 
     }
 
