@@ -54,7 +54,7 @@ public class Student {
     public void setRegNo(int regNo) {
         this.regNo = regNo;
     }
-    private LocalDateTime createdAt;
+     LocalDateTime createdAt;
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }

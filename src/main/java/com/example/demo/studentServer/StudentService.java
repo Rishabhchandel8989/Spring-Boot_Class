@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -38,11 +39,16 @@ public class StudentService {
 
     public List<Student> getAllStudents() {
         return studentRepositry.findAll();
+
     }
-    public Student getStudent(int id){
-        return studentRepositry.findById(id)
-                .orElseThrow(() -> new RuntimeException("Student Not Found")
-                );
+    public Student getStudent(int id)throws  Exception {
+//        return studentRepositry.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Student Not Found")
+//                );
+
+        Optional<Student> student=studentRepositry.findById((id));
+        return student.get();
+
     }
 
     private CreateStudentResponseDTO mapToResposeDTO(Student student){
@@ -50,7 +56,7 @@ public class StudentService {
         createStudentResponseDTO.setId(student.getId());
         createStudentResponseDTO.setName(student.getName());
         createStudentResponseDTO.setRegNo(student.getRegNo());
-        createStudentResponseDTO.setCreatedAt(student.getCreatedAt());
+//        createStudentResponseDTO.setCreatedAt(student.getCreatedAt());
 
         return createStudentResponseDTO;
     }

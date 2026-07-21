@@ -26,7 +26,7 @@ public class StudenController {
         }
 //     Get the student by there ID
     @GetMapping("/student/{id}")
-    public Student getStudent(@PathVariable int id) {
+    public Student getStudent(@PathVariable int id ) throws Exception {
         return studentService.getStudent(id);
     }
 

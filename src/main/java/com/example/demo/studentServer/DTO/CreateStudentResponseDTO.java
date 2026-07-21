@@ -11,5 +11,5 @@ public class CreateStudentResponseDTO {
     private String name;
     private String department;
     private int regNo;
-    private LocalDateTime createdAt;
+
 }
