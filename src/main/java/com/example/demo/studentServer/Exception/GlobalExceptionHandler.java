@@ -1,29 +1,34 @@
 package com.example.demo.studentServer.Exception;
-//
-//
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.stereotype.Repository;
-//import org.springframework.web.bind.annotation.RestControllerAdvice;
-//
-//@RestControllerAdvice
-//public class GobalException {
-//    public ResponseEntity<String> handleException(RuntimeException e){
-//        return (ResponseEntity<String>) ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
-//}
-
-
+import com.example.demo.studentServer.DTO.ExceptionResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.time.LocalDateTime;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<String> handleRuntimeException(RuntimeException ex) {
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    public ResponseEntity<ExceptionResponseDTO> handleRuntimeException(
+            RuntimeException ex,
+            HttpServletRequest request) {
+
+        ExceptionResponseDTO response = new ExceptionResponseDTO(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(),
+                HttpStatus.NOT_FOUND.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+        return ResponseEntity.status(500).body(response);
+
+//    @ExceptionHandler(RuntimeException.class)
+//    public ResponseEntity<String> handleRuntimeException(RuntimeException e) {
+//        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
+
     }
 }
